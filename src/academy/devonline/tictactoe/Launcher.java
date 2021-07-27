@@ -17,6 +17,13 @@
 
 package academy.devonline.tictactoe;
 
+import academy.devonline.tictactoe.component.ComputerMove;
+import academy.devonline.tictactoe.component.DataPrinter;
+import academy.devonline.tictactoe.component.DrawVerifier;
+import academy.devonline.tictactoe.component.Game;
+import academy.devonline.tictactoe.component.UserMove;
+import academy.devonline.tictactoe.component.WinnerVerifier;
+
 /**
  * @author devonline
  * @link http://devonline.academy/java
