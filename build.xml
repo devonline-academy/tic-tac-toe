@@ -17,24 +17,24 @@
 
 <project name="tic-tac-toe project" basedir="." default="build">
 
-    <target name="build">
-        <!-- mkdir out\classes -->
+    <target name="clean">
+        <delete dir="out"/>
+    </target>
+
+    <target name="compile">
         <mkdir dir="out/classes"/>
-
-        <!-- javac -sourcepath src/ -d out/classes src/academy/devonline/tictactoe/Launcher.java -->
         <javac srcdir="src" destdir="out/classes"/>
+    </target>
 
-        <!-- jar cfe out/tic-tac-toe.jar academy.devonline.tictactoe.Launcher -C out/classes . -->
+    <target name="jar" depends="compile">
         <jar destfile="out/tic-tac-toe.jar" basedir="out/classes">
             <manifest>
                 <attribute name="Main-Class" value="academy.devonline.tictactoe.Launcher"/>
             </manifest>
         </jar>
+    </target>
 
-        <!--
-            del /q /f out\classes
-            rmdir /q /s out\classes
-        -->
+    <target name="build" depends="jar">
         <delete dir="out/classes"/>
     </target>
 </project>
