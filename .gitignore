@@ -20,11 +20,6 @@
 # Maven
 target
 
-# Gradle
-.gradle
-**/build/
-!src/**/build/
-
 # ----------------------------------------- IDE Internal Directories And Files -----------------------------------------
 # IntelliJ IDEA
 .idea
