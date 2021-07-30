@@ -30,6 +30,7 @@
                 <include>NOTICE</include>
             </includes>
             <lineEnding>unix</lineEnding>
+            <filtered>true</filtered>
         </fileSet>
         <fileSet>
             <directory>${project.build.directory}</directory>

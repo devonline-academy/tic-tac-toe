@@ -23,7 +23,7 @@
     <artifactId>tic-tac-toe</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>tic-tac-toe</name>
+    <name>Tic Tac Toe</name>
     <description>The Tic-Tac-Toe simple game using console mode</description>
     <url>http://devonline.academy/java</url>
     <organization>
