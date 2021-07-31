@@ -56,6 +56,9 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
+        <!-- External tool -->
+        <proguard.version>7.1.1</proguard.version>
+
         <!-- Maven core plugins -->
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
         <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
@@ -70,6 +73,7 @@
         <!-- Maven additional plugins -->
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
+        <proguard-maven-plugin.version>2.3.1</proguard-maven-plugin.version>
     </properties>
 
     <build>
@@ -123,6 +127,45 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>com.github.wvengen</groupId>
+                <artifactId>proguard-maven-plugin</artifactId>
+                <version>${proguard-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>proguard</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <proguardVersion>${proguard.version}</proguardVersion>
+                    <obfuscate>true</obfuscate>
+                    <injar>${project.build.finalName}.jar</injar>
+                    <outjar>${project.build.finalName}-release.jar</outjar>
+                    <proguardInclude>${basedir}/proguard-rules.conf</proguardInclude>
+                    <libs>
+                        <lib>${java.home}/jmods/java.base.jmod</lib>
+                    </libs>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.guardsquare</groupId>
+                        <artifactId>proguard-base</artifactId>
+                        <version>${proguard.version}</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.guardsquare</groupId>
+                        <artifactId>proguard-core</artifactId>
+                        <version>${proguard.version}</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
     </build>
     <profiles>
         <profile>

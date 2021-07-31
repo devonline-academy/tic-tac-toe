@@ -36,7 +36,7 @@
             <directory>${project.build.directory}</directory>
             <outputDirectory/>
             <includes>
-                <include>${project.build.finalName}.jar</include>
+                <include>${project.build.finalName}-release.jar</include>
             </includes>
         </fileSet>
         <fileSet>
