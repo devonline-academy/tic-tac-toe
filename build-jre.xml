@@ -1,0 +1,166 @@
+<!--
+  ~ Copyright (c) 2019. http://devonline.academy
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+<project name="Build JRE for tic-tac-toe game" default="build-jre" basedir=".">
+
+    <!-- ******************************* SCRIPT CONFIGS ******************************* -->
+    <!-- JPMS modules -->
+    <property name="java.modules"
+              value="java.base"/>
+
+    <!-- Target directories -->
+    <property name="target-tmp-dir"
+              value=".tmp"/>
+    <property name="jre-windows-dir-name"
+              value="jre-windows"/>
+    <property name="jre-macos-dir-name"
+              value="jre-macos"/>
+    <property name="jre-linux-dir-name"
+              value="jre-linux"/>
+
+    <!-- JDK download links -->
+    <property name="jdk-windows-download-link"
+              value="https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_windows-x64_bin.zip"/>
+    <property name="jdk-macos-download-link"
+              value="https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_osx-x64_bin.tar.gz"/>
+    <property name="jdk-linux-download-link"
+              value="https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"/>
+
+    <property environment="env"/>
+
+    <!-- *************************************** TARGETS *************************************** -->
+    <target name="build-jre"
+            depends="build-windows-jre, build-macos-jre, build-linux-jre"/>
+
+    <target name="init">
+        <mkdir dir="${target-tmp-dir}"/>
+        <mkdir dir="${target-tmp-dir}/jdk"/>
+    </target>
+
+    <!-- *********************************** FOR WINDOWS PLATFORM *********************************** -->
+    <condition property="isCurrentWindows">
+        <os family="windows"/>
+    </condition>
+
+    <condition property="isWindowsJreBuilt">
+        <available file="${target-tmp-dir}/${jre-windows-dir-name}/bin/java.exe"/>
+    </condition>
+
+    <target name="build-windows-jre" depends="init" unless="isWindowsJreBuilt">
+        <antcall target="build-windows-jre-if-windows"/>
+        <antcall target="build-windows-jre-if-not-windows"/>
+    </target>
+
+    <target name="build-windows-jre-if-windows" if="isCurrentWindows">
+        <build-jre modulePath="${env.JAVA_HOME}/jmods/" destDir="jre-windows"/>
+    </target>
+
+    <target name="build-windows-jre-if-not-windows" unless="isCurrentWindows">
+        <antcall target="download-windows-jdk"/>
+        <build-jre modulePath="${target-tmp-dir}/jdk/jdk-windows/jdk-11.0.2/jmods"
+                   destDir="jre-windows"/>
+    </target>
+
+    <target name="download-windows-jdk">
+        <echo level="info"
+              message="Download JDK using '${jdk-windows-download-link}' link"/>
+        <get src="${jdk-windows-download-link}" dest="${target-tmp-dir}/jdk/jdk-windows.zip" skipexisting="true"/>
+        <unzip src="${target-tmp-dir}/jdk/jdk-windows.zip" dest="${target-tmp-dir}/jdk/jdk-windows"/>
+    </target>
+
+    <!-- *********************************** FOR MACOS PLATFORM *********************************** -->
+    <condition property="isCurrentMacos">
+        <os family="mac"/>
+    </condition>
+
+    <condition property="isMacosJreBuilt">
+        <available file="${target-tmp-dir}/${jre-macos-dir-name}/bin/java"/>
+    </condition>
+
+    <target name="build-macos-jre" depends="init" unless="isMacosJreBuilt">
+        <antcall target="build-macos-jre-if-macos"/>
+        <antcall target="build-macos-jre-if-not-macos"/>
+    </target>
+
+    <target name="build-macos-jre-if-macos" if="isCurrentMacos">
+        <build-jre modulePath="${env.JAVA_HOME}/jmods/" destDir="${jre-macos-dir-name}"/>
+    </target>
+
+    <target name="build-macos-jre-if-not-macos" unless="isCurrentMacos">
+        <antcall target="download-macos-jdk"/>
+        <build-jre modulePath="${target-tmp-dir}/jdk/jdk-macos/jdk-11.0.2.jdk/Contents/Home/jmods"
+                   destDir="${jre-macos-dir-name}"/>
+    </target>
+
+    <target name="download-macos-jdk">
+        <echo level="info"
+              message="Download JDK using '${jdk-macos-download-link}' link"/>
+        <get src="${jdk-macos-download-link}" dest="${target-tmp-dir}/jdk/jdk-macos.tar.gz" skipexisting="true"/>
+        <untar src="${target-tmp-dir}/jdk/jdk-macos.tar.gz" dest="${target-tmp-dir}/jdk/jdk-macos" compression="gzip"/>
+    </target>
+
+    <!-- *********************************** FOR LINUX PLATFORM *********************************** -->
+    <condition property="isCurrentLinux">
+        <and>
+            <os family="unix"/>
+            <not>
+                <os family="macos"/>
+            </not>
+        </and>
+    </condition>
+
+    <condition property="isLinuxJreBuilt">
+        <available file="${target-tmp-dir}/${jre-linux-dir-name}/bin/java"/>
+    </condition>
+
+    <target name="build-linux-jre" depends="init" unless="isLinuxJreBuilt">
+        <antcall target="build-linux-jre-if-linux"/>
+        <antcall target="build-linux-jre-if-not-linux"/>
+    </target>
+
+    <target name="build-linux-jre-if-linux" if="isCurrentLinux">
+        <build-jre modulePath="${env.JAVA_HOME}/jmods/" destDir="${jre-linux-dir-name}"/>
+    </target>
+
+    <target name="build-linux-jre-if-not-linux" unless="isCurrentLinux">
+        <antcall target="download-linux-jdk"/>
+        <build-jre modulePath="${target-tmp-dir}/jdk/jdk-linux/jdk-11.0.2/jmods"
+                   destDir="${jre-linux-dir-name}"/>
+    </target>
+
+    <target name="download-linux-jdk">
+        <echo level="info"
+              message="Download JDK using '${jdk-linux-download-link}' link"/>
+        <get src="${jdk-linux-download-link}" dest="${target-tmp-dir}/jdk/jdk-linux.tar.gz" skipexisting="true"/>
+        <untar src="${target-tmp-dir}/jdk/jdk-linux.tar.gz" dest="${target-tmp-dir}/jdk/jdk-linux" compression="gzip"/>
+    </target>
+
+    <!-- ********************************* MACRO DEFINITIONS ************************************* -->
+    <macrodef name="build-jre">
+        <attribute name="destDir"/>
+        <attribute name="modulePath"/>
+        <sequential>
+            <echo level="info"
+                  message="Build JRE using '@{modulePath}' module path into '${target-tmp-dir}/@{destDir}' directory"/>
+            <exec executable="${env.JAVA_HOME}/bin/jlink" failonerror="true">
+                <arg line='--add-modules "${java.modules}"'/>
+                <arg line='--module-path "@{modulePath}"'/>
+                <arg line='--output ${target-tmp-dir}/@{destDir}'/>
+                <arg line='--no-header-files --no-man-pages --compress 2'/>
+            </exec>
+        </sequential>
+    </macrodef>
+</project>
