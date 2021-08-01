@@ -32,6 +32,8 @@ if [ -x "$WHICH_JAVA" ]; then
   unset WHICH_JAVA
 fi
 # ----------------------------------------------------------------------------------------------------------------------
+# Fix current dir issue for MacOS. Read more: http://hints.macworld.com/article.php?story=20041217111834902
+cd "$(dirname "$0")" || exit
 # Try to use `java` from JRE if `jre/bin/java` exists and executable:
 if [ -x "jre/bin/java" ]; then
   JAVA_CMD="jre/bin/java"
@@ -44,8 +46,6 @@ if [ -z ${JAVA_CMD+x} ]; then
   echo "------------------------------------------------------------------------" >&2
   RETURN_CODE=1
 else
-  # Fix current dir issue. Read more: http://hints.macworld.com/article.php?story=20041217111834902
-  cd "$(dirname "$0")" || exit
   # Run tic-tac-toe game:
   $JAVA_CMD -jar ${project.build.finalName}-release.jar
   RETURN_CODE=0
