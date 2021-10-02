@@ -59,33 +59,32 @@ public class Game {
         }
         final Move[] moves = {userMove, computerMove};
         while (true) {
-            boolean gameOver = false;
             for (final Move move : moves) {
                 move.make(gameTable);
                 dataPrinter.printGameTable(gameTable);
                 if (move instanceof UserMove) {
                     if (winnerVerifier.isUserWin(gameTable)) {
                         System.out.println("YOU WIN!");
-                        gameOver = true;
-                        break;
+                        printGameOver();
+                        return;
                     }
                 } else {
                     if (winnerVerifier.isComputerWin(gameTable)) {
                         System.out.println("COMPUTER WIN!");
-                        gameOver = true;
-                        break;
+                        printGameOver();
+                        return;
                     }
                 }
                 if (cellVerifier.allCellsFilled(gameTable)) {
                     System.out.println("Sorry, DRAW!");
-                    gameOver = true;
-                    break;
+                    printGameOver();
+                    return;
                 }
             }
-            if (gameOver) {
-                break;
-            }
         }
+    }
+
+    private void printGameOver() {
         System.out.println("GAME OVER!");
     }
 }
