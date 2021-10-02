@@ -15,31 +15,36 @@
  *
  */
 
-package academy.devonline.tictactoe.component;
+package academy.devonline.tictactoe.model;
 
-import academy.devonline.tictactoe.model.Cell;
-import academy.devonline.tictactoe.model.GameTable;
-import academy.devonline.tictactoe.model.Sign;
-
-import java.util.Random;
+import academy.devonline.tictactoe.component.Move;
 
 /**
  * @author devonline
  * @link http://devonline.academy/java
  */
-public class ComputerMove implements Move {
+public final class Player {
+
+    private final Sign sign;
+
+    private final Move move;
+
+    public Player(final Sign sign,
+                  final Move move) {
+        this.sign = sign;
+        this.move = move;
+    }
+
+    public Sign getSign() {
+        return sign;
+    }
+
+    public void makeMove(final GameTable gameTable) {
+        move.make(gameTable, sign);
+    }
 
     @Override
-    public void make(final GameTable gameTable, final Sign sign) {
-        final Random random = new Random();
-        while (true) {
-            final int row = random.nextInt(3);
-            final int col = random.nextInt(3);
-            final Cell randomCell = new Cell(row, col);
-            if (gameTable.isEmpty(randomCell)) {
-                gameTable.setSign(randomCell, sign);
-                return;
-            }
-        }
+    public String toString() {
+        return "'" + sign + "'";
     }
 }
