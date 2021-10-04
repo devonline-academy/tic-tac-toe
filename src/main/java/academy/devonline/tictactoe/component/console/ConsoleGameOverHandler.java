@@ -15,21 +15,25 @@
  *
  */
 
-package academy.devonline.tictactoe.component;
+package academy.devonline.tictactoe.component.console;
 
-import academy.devonline.tictactoe.model.GameTable;
+import academy.devonline.tictactoe.component.DataPrinter;
+import academy.devonline.tictactoe.component.GameOverHandler;
 
 /**
  * @author devonline
  * @link http://devonline.academy/java
  */
-public interface DataPrinter {
+public class ConsoleGameOverHandler implements GameOverHandler {
 
-    void printInstructions();
+    private final DataPrinter dataPrinter;
 
-    void printInfoMessage(String message);
+    public ConsoleGameOverHandler(final DataPrinter dataPrinter) {
+        this.dataPrinter = dataPrinter;
+    }
 
-    void printErrorMessage(String message);
-
-    void printGameTable(GameTable gameTable);
+    @Override
+    public void gameOver() {
+        dataPrinter.printInfoMessage("GAME OVER!");
+    }
 }

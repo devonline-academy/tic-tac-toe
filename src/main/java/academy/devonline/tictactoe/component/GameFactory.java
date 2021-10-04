@@ -18,6 +18,7 @@
 package academy.devonline.tictactoe.component;
 
 import academy.devonline.tictactoe.component.console.ConsoleDataPrinter;
+import academy.devonline.tictactoe.component.console.ConsoleGameOverHandler;
 import academy.devonline.tictactoe.component.console.ConsoleUserInputReader;
 import academy.devonline.tictactoe.component.keypad.DesktopNumericKeypadCellNumberConverter;
 import academy.devonline.tictactoe.component.swing.GameWindow;
@@ -53,14 +54,17 @@ public class GameFactory {
     public Game create() {
         final DataPrinter dataPrinter;
         final UserInputReader userInputReader;
+        final GameOverHandler gameOverHandler;
         if (userInterface == GUI) {
             final GameWindow gameWindow = new GameWindow();
             dataPrinter = gameWindow;
             userInputReader = gameWindow;
+            gameOverHandler = gameWindow;
         } else {
             final CellNumberConverter cellNumberConverter = new DesktopNumericKeypadCellNumberConverter();
             dataPrinter = new ConsoleDataPrinter(cellNumberConverter);
             userInputReader = new ConsoleUserInputReader(cellNumberConverter, dataPrinter);
+            gameOverHandler = new ConsoleGameOverHandler(dataPrinter);
         }
         final Player player1;
         if (player1Type == USER) {
@@ -81,6 +85,7 @@ public class GameFactory {
                 player2,
                 new WinnerVerifier(),
                 new CellVerifier(),
+                gameOverHandler,
                 canSecondPlayerMakeFirstMove
         );
     }
