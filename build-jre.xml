@@ -19,7 +19,7 @@
     <!-- ******************************* SCRIPT CONFIGS ******************************* -->
     <!-- JPMS modules -->
     <property name="java.modules"
-              value="java.base"/>
+              value="java.base,java.desktop"/>
 
     <!-- Target directories -->
     <property name="target-tmp-dir"

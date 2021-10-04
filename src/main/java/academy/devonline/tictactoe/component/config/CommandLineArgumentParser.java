@@ -15,15 +15,15 @@
  *
  */
 
-package academy.devonline.tictactoe.component;
+package academy.devonline.tictactoe.component.config;
 
-import academy.devonline.tictactoe.model.PlayerType;
-import academy.devonline.tictactoe.model.UserInterface;
+import academy.devonline.tictactoe.model.config.PlayerType;
+import academy.devonline.tictactoe.model.config.UserInterface;
 
-import static academy.devonline.tictactoe.model.PlayerType.COMPUTER;
-import static academy.devonline.tictactoe.model.PlayerType.USER;
-import static academy.devonline.tictactoe.model.UserInterface.CONSOLE;
-import static academy.devonline.tictactoe.model.UserInterface.GUI;
+import static academy.devonline.tictactoe.model.config.PlayerType.COMPUTER;
+import static academy.devonline.tictactoe.model.config.PlayerType.USER;
+import static academy.devonline.tictactoe.model.config.UserInterface.CONSOLE;
+import static academy.devonline.tictactoe.model.config.UserInterface.GUI;
 
 /**
  * @author devonline

@@ -15,7 +15,7 @@
  *
  */
 
-package academy.devonline.tictactoe.model;
+package academy.devonline.tictactoe.model.game;
 
 import academy.devonline.tictactoe.component.Move;
 

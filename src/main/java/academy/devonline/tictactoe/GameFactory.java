@@ -15,21 +15,31 @@
  *
  */
 
-package academy.devonline.tictactoe.component;
+package academy.devonline.tictactoe;
 
+import academy.devonline.tictactoe.component.CellVerifier;
+import academy.devonline.tictactoe.component.ComputerMove;
+import academy.devonline.tictactoe.component.DataPrinter;
+import academy.devonline.tictactoe.component.Game;
+import academy.devonline.tictactoe.component.GameOverHandler;
+import academy.devonline.tictactoe.component.UserInputReader;
+import academy.devonline.tictactoe.component.UserMove;
+import academy.devonline.tictactoe.component.WinnerVerifier;
+import academy.devonline.tictactoe.component.config.CommandLineArgumentParser;
+import academy.devonline.tictactoe.component.console.CellNumberConverter;
 import academy.devonline.tictactoe.component.console.ConsoleDataPrinter;
 import academy.devonline.tictactoe.component.console.ConsoleGameOverHandler;
 import academy.devonline.tictactoe.component.console.ConsoleUserInputReader;
-import academy.devonline.tictactoe.component.keypad.DesktopNumericKeypadCellNumberConverter;
+import academy.devonline.tictactoe.component.console.keypad.DesktopNumericKeypadCellNumberConverter;
 import academy.devonline.tictactoe.component.swing.GameWindow;
-import academy.devonline.tictactoe.model.Player;
-import academy.devonline.tictactoe.model.PlayerType;
-import academy.devonline.tictactoe.model.UserInterface;
+import academy.devonline.tictactoe.model.config.PlayerType;
+import academy.devonline.tictactoe.model.config.UserInterface;
+import academy.devonline.tictactoe.model.game.Player;
 
-import static academy.devonline.tictactoe.model.PlayerType.USER;
-import static academy.devonline.tictactoe.model.Sign.O;
-import static academy.devonline.tictactoe.model.Sign.X;
-import static academy.devonline.tictactoe.model.UserInterface.GUI;
+import static academy.devonline.tictactoe.model.config.PlayerType.USER;
+import static academy.devonline.tictactoe.model.config.UserInterface.GUI;
+import static academy.devonline.tictactoe.model.game.Sign.O;
+import static academy.devonline.tictactoe.model.game.Sign.X;
 
 /**
  * @author devonline

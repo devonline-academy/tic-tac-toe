@@ -15,36 +15,17 @@
  *
  */
 
-package academy.devonline.tictactoe.model;
+package academy.devonline.tictactoe.component.console;
+
+import academy.devonline.tictactoe.model.game.Cell;
 
 /**
  * @author devonline
  * @link http://devonline.academy/java
  */
-public class Cell {
+public interface CellNumberConverter {
 
-    private final int row;
+    Cell toCell(char number);
 
-    private final int col;
-
-    public Cell(final int row, final int col) {
-        this.row = row;
-        this.col = col;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
-    @Override
-    public String toString() {
-        return "Cell{" +
-                "row=" + row +
-                ", col=" + col +
-                '}';
-    }
+    char toNumber(Cell cell);
 }

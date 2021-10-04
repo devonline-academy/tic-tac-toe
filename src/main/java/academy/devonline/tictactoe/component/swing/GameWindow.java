@@ -20,8 +20,8 @@ package academy.devonline.tictactoe.component.swing;
 import academy.devonline.tictactoe.component.DataPrinter;
 import academy.devonline.tictactoe.component.GameOverHandler;
 import academy.devonline.tictactoe.component.UserInputReader;
-import academy.devonline.tictactoe.model.Cell;
-import academy.devonline.tictactoe.model.GameTable;
+import academy.devonline.tictactoe.model.game.Cell;
+import academy.devonline.tictactoe.model.game.GameTable;
 
 import java.awt.Color;
 import java.awt.Dimension;

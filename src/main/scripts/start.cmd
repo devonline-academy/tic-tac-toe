@@ -48,11 +48,8 @@ if not defined JAVA_CMD (
     set RETURN_CODE=1
 ) else (
     @rem Run tic-tac-toe game:
-    %JAVA_CMD% -jar ${project.build.finalName}-release.jar
+    %JAVA_CMD% -jar ${project.build.finalName}-release.jar %*
     set RETURN_CODE=0
 )
-@rem -------------------------------------------------------------------------------------------------------------------
-@rem Wait for the any key pressed:
-pause
 @rem -------------------------------------------------------------------------------------------------------------------
 exit /b %RETURN_CODE%

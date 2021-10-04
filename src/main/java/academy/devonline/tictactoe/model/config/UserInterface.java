@@ -15,25 +15,15 @@
  *
  */
 
-package academy.devonline.tictactoe.component.keypad;
-
-import academy.devonline.tictactoe.component.CellNumberConverter;
-import academy.devonline.tictactoe.model.Cell;
+package academy.devonline.tictactoe.model.config;
 
 /**
  * @author devonline
  * @link http://devonline.academy/java
  */
-public class TerminalNumericKeypadCellNumberConverter implements CellNumberConverter {
+public enum UserInterface {
 
-    @Override
-    public Cell toCell(final char number) {
-        final int val = number - '0' - 1;
-        return new Cell(val / 3, val % 3);
-    }
+    GUI,
 
-    @Override
-    public char toNumber(final Cell cell) {
-        return (char) ('0' + (cell.getRow() * 3 + cell.getCol() + 1));
-    }
+    CONSOLE
 }

@@ -15,7 +15,7 @@
  *
  */
 
-package academy.devonline.tictactoe.model;
+package academy.devonline.tictactoe.model.config;
 
 /**
  * @author devonline
