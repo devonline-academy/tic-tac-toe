@@ -50,6 +50,15 @@ public class DesktopNumericKeypadCellNumberConverter implements CellNumberConver
 
     @Override
     public char toNumber(final Cell cell) {
-        return mapping[cell.getRow()][cell.getCol()];
+        try {
+            return mapping[cell.getRow()][cell.getCol()];
+        } catch (final ArrayIndexOutOfBoundsException ignore) {
+            throw new IllegalArgumentException(
+                    format(
+                            "Row and col indexes must be between 0 and 2! Current row is %s, current col is %s!",
+                            cell.getRow(), cell.getCol()
+                    )
+            );
+        }
     }
 }
