@@ -11,6 +11,12 @@ import academy.devonline.tictactoe.model.game.Sign;
  */
 public abstract class AbstractComputerMoveStrategy implements ComputerMoveStrategy {
 
+    private final int expectedCountEmptyCells;
+
+    protected AbstractComputerMoveStrategy(final int expectedCountEmptyCells) {
+        this.expectedCountEmptyCells = expectedCountEmptyCells;
+    }
+
     @Override
     public final boolean tryToMakeMove(final GameTable gameTable, final Sign moveSign) {
         final Sign findSign = getFindSign(moveSign);
@@ -68,7 +74,9 @@ public abstract class AbstractComputerMoveStrategy implements ComputerMoveStrate
                 break;
             }
         }
-        if (countEmptyCells == 1 && countSignCells == 2) {
+        if (lastEmptyCell != null &&
+                countEmptyCells == expectedCountEmptyCells &&
+                countSignCells == 3 - expectedCountEmptyCells) {
             gameTable.setSign(lastEmptyCell, moveSign);
             return true;
         }

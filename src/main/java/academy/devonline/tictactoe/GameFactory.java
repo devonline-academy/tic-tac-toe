@@ -36,6 +36,7 @@ import academy.devonline.tictactoe.component.strategy.FirstMoveToTheCenterComput
 import academy.devonline.tictactoe.component.strategy.PreventUserWinComputerMoveStrategy;
 import academy.devonline.tictactoe.component.strategy.RandomComputerMoveStrategy;
 import academy.devonline.tictactoe.component.strategy.WinNowComputerMoveStrategy;
+import academy.devonline.tictactoe.component.strategy.WinOnTheNextStepComputerMoveStrategy;
 import academy.devonline.tictactoe.component.swing.GameWindow;
 import academy.devonline.tictactoe.model.config.PlayerType;
 import academy.devonline.tictactoe.model.config.UserInterface;
@@ -70,6 +71,7 @@ public class GameFactory {
         final ComputerMoveStrategy[] strategies = {
                 new WinNowComputerMoveStrategy(),
                 new PreventUserWinComputerMoveStrategy(),
+                new WinOnTheNextStepComputerMoveStrategy(),
                 new FirstMoveToTheCenterComputerMoveStrategy(),
                 new RandomComputerMoveStrategy()
         };
