@@ -20,6 +20,8 @@ package academy.devonline.tictactoe.component.console.keypad;
 import academy.devonline.tictactoe.component.console.CellNumberConverter;
 import academy.devonline.tictactoe.model.game.Cell;
 
+import static java.lang.String.format;
+
 /**
  * @author devonline
  * @link http://devonline.academy/java
@@ -41,7 +43,9 @@ public class DesktopNumericKeypadCellNumberConverter implements CellNumberConver
                 }
             }
         }
-        return null;
+        throw new IllegalArgumentException(
+                format("Number parameter must be between '1' and '9'! Current value is '%s'!", number)
+        );
     }
 
     @Override
