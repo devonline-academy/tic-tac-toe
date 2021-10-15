@@ -24,7 +24,6 @@ import static academy.devonline.tictactoe.model.config.PlayerType.COMPUTER;
 import static academy.devonline.tictactoe.model.config.PlayerType.USER;
 import static academy.devonline.tictactoe.model.config.UserInterface.CONSOLE;
 import static academy.devonline.tictactoe.model.config.UserInterface.GUI;
-import static java.lang.String.format;
 
 /**
  * @author devonline
