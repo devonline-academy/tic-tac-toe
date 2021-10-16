@@ -47,7 +47,7 @@ public class RandomComputerMoveStrategy implements ComputerMoveStrategy {
             gameTable.setSign(randomCell, sign);
             return true;
         } else {
-            throw new IllegalArgumentException("Game table does not contain any empty cell!");
+            return false;
         }
     }
 }
