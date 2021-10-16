@@ -23,7 +23,7 @@
     <version>4.0-SNAPSHOT</version>
 
     <name>Tic Tac Toe</name>
-    <description>The Tic-Tac-Toe simple game using console mode</description>
+    <description>The Tic-Tac-Toe simple game using console and GUI mode</description>
     <url>http://devonline.academy/java</url>
     <organization>
         <name>DevOnline Academy</name>
