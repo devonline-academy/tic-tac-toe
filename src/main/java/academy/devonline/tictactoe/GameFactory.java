@@ -19,7 +19,6 @@ package academy.devonline.tictactoe;
 
 import academy.devonline.tictactoe.component.CellVerifier;
 import academy.devonline.tictactoe.component.ComputerMove;
-import academy.devonline.tictactoe.component.ComputerMoveStrategy;
 import academy.devonline.tictactoe.component.DataPrinter;
 import academy.devonline.tictactoe.component.Game;
 import academy.devonline.tictactoe.component.GameOverHandler;
@@ -32,12 +31,8 @@ import academy.devonline.tictactoe.component.console.ConsoleDataPrinter;
 import academy.devonline.tictactoe.component.console.ConsoleGameOverHandler;
 import academy.devonline.tictactoe.component.console.ConsoleUserInputReader;
 import academy.devonline.tictactoe.component.console.keypad.DesktopNumericKeypadCellNumberConverter;
-import academy.devonline.tictactoe.component.strategy.FirstMoveToTheCenterComputerMoveStrategy;
-import academy.devonline.tictactoe.component.strategy.PreventUserWinComputerMoveStrategy;
-import academy.devonline.tictactoe.component.strategy.RandomComputerMoveStrategy;
-import academy.devonline.tictactoe.component.strategy.WinNowComputerMoveStrategy;
-import academy.devonline.tictactoe.component.strategy.WinOnTheNextStepComputerMoveStrategy;
 import academy.devonline.tictactoe.component.swing.GameWindow;
+import academy.devonline.tictactoe.model.config.Level;
 import academy.devonline.tictactoe.model.config.PlayerType;
 import academy.devonline.tictactoe.model.config.UserInterface;
 import academy.devonline.tictactoe.model.game.Player;
@@ -59,22 +54,18 @@ public class GameFactory {
 
     private final UserInterface userInterface;
 
+    private final Level level;
+
     public GameFactory(final String[] args) {
         final CommandLineArgumentParser.CommandLineArguments commandLineArguments =
                 new CommandLineArgumentParser(args).parse();
         player1Type = commandLineArguments.getPlayer1Type();
         player2Type = commandLineArguments.getPlayer2Type();
         userInterface = commandLineArguments.getUserInterface();
+        level = commandLineArguments.getLevel();
     }
 
     public Game create() {
-        final ComputerMoveStrategy[] strategies = {
-                new WinNowComputerMoveStrategy(),
-                new PreventUserWinComputerMoveStrategy(),
-                new WinOnTheNextStepComputerMoveStrategy(),
-                new FirstMoveToTheCenterComputerMoveStrategy(),
-                new RandomComputerMoveStrategy()
-        };
         final DataPrinter dataPrinter;
         final UserInputReader userInputReader;
         final GameOverHandler gameOverHandler;
@@ -93,13 +84,13 @@ public class GameFactory {
         if (player1Type == USER) {
             player1 = new Player(X, new UserMove(userInputReader, dataPrinter));
         } else {
-            player1 = new Player(X, new ComputerMove(strategies));
+            player1 = new Player(X, new ComputerMove(level.getStrategies()));
         }
         final Player player2;
         if (player2Type == USER) {
             player2 = new Player(O, new UserMove(userInputReader, dataPrinter));
         } else {
-            player2 = new Player(O, new ComputerMove(strategies));
+            player2 = new Player(O, new ComputerMove(level.getStrategies()));
         }
         final boolean canSecondPlayerMakeFirstMove = player1Type != player2Type;
         return new Game(
